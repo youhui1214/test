@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>001</title>
+    <style>
+        .main {
+            width: 400px;
+            height: 2000px;
+            background-color: #BCE8F1;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="main">
+        <button id="submit" onclick="btnDe()">点击debounce</button>
+        <p>ff</p>
+        <button onclick="throttle(test, 3000)()">点击throttle</button>
+    </div>
+    
+    
+    <script>
+        
+        function test() {
+            console.log(200);
+        }
+        
+        // 1，防抖：在一段时间内，不论点击几次，最后只执行一次
+        function debounce(func, wait) {
+            let timer = 0;
+            
+            console.log(11);
+            
+            return function(...args) {
+                console.log(1222);
+                
+                if (timer) clearTimeout(timer);
+                timer = setTimeout(() => {
+                    func.apply(this, args)
+                }, wait)
+            }
+        }
+        
+        var btnDe = debounce(test, 1000);
+        
+        console.log(btnDe);
+        
+        /*let btn = document.getElementById('submit');
+        btn.addEventListener('click', debounce(test, 1000));*/
+        
+        
+        // 滚动事件
+        // window.addEventListener('scroll', debounce(test, 1000));
+        // window.addEventListener('scroll', test);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
