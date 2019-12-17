@@ -17,9 +17,10 @@
     
     
     <div class="main">
+        <!--<button id="submit" onclick="btnDe()">点击debounce</button>-->
         <button id="submit" onclick="btnDe()">点击debounce</button>
         <p>ff</p>
-        <button onclick="throttle(test, 3000)()">点击throttle</button>
+        <button onclick="debounce(test, 3000)()">点击debounce002</button>
     </div>
     
     
@@ -48,7 +49,7 @@
         
         var btnDe = debounce(test, 1000);
         
-        console.log(btnDe);
+        // console.log(btnDe);
         
         /*let btn = document.getElementById('submit');
         btn.addEventListener('click', debounce(test, 1000));*/
