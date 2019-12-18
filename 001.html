@@ -30,29 +30,24 @@
             console.log(200);
         }
         
+        var name = 'huhu';
+        
         // 1，防抖：在一段时间内，不论点击几次，最后只执行一次
-        // 闭包，函数执行域，调用方法
+        // 闭包，函数执行域，调用方法,
         function debounce(func, wait) {
             let timer = 0;
-            
-            console.log(11);
-            
-            return function(...args) {
-                console.log(1222);
-                
+            return (...args) => {
                 if (timer) clearTimeout(timer);
+                // 返回的是定时器的编号
                 timer = setTimeout(() => {
-                    func.apply(this, args)
-                }, wait)
+                    console.log(this.name);
+                    
+                    func.apply(this, args);  // 闭包中的this，就是外层函数的this
+                }, wait);
             }
         }
         
         var btnDe = debounce(test, 1000);
-        
-        // console.log(btnDe);
-        
-        /*let btn = document.getElementById('submit');
-        btn.addEventListener('click', debounce(test, 1000));*/
         
         
         // 滚动事件
