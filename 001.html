@@ -17,10 +17,9 @@
     
     
     <div class="main">
-        <!--<button id="submit" onclick="btnDe()">点击debounce</button>-->
-        <button id="submit" onclick="btnDe()">点击debounce</button>
+        <button id="submit" onclick="tt()">点击debounce</button>
         <p>ff</p>
-        <button onclick="debounce(test, 3000)()">点击debounce002</button>
+        <button onclick="tt.cancel()">取消debounce</button>
     </div>
     
     
@@ -29,31 +28,42 @@
         function test() {
             console.log(200);
         }
-        
-        var name = 'huhu';
-        
         // 1，防抖：在一段时间内，不论点击几次，最后只执行一次
         // 闭包，函数执行域，调用方法,
-        function debounce(func, wait) {
+        const debounce = (fn, wait = 50, immediate = false) => {
             let timer = 0;
-            return (...args) => {
+            
+            let debounced = (...args) => {
                 if (timer) clearTimeout(timer);
-                // 返回的是定时器的编号
-                timer = setTimeout(() => {
-                    console.log(this.name);
-                    
-                    func.apply(this, args);  // 闭包中的this，就是外层函数的this
-                }, wait);
-            }
-        }
+    
+                if (immediate) {
+                    const callNow = !timer;
+                    timer = setTimeout(() => {
+                        timer = 0;
+                    }, wait);
         
-        var btnDe = debounce(test, 1000);
+                    if (callNow) fn.apply(this, args); // 立即执行
         
+                } else {
+                    // 返回的是定时器的编号
+                    timer = setTimeout(() => {
+                        fn.apply(this, args)
+                    }, wait)
+                }
+            };
+            // 增加取消
+            debounced.cancel = function () {
+                clearTimeout(timer);
+                timer = 0;
+            };
+            
+            return debounced;
+        };
         
-        // 滚动事件
-        // window.addEventListener('scroll', debounce(test, 1000));
-        // window.addEventListener('scroll', test);
+        const tt = debounce(test, 3000, false);
         
+        console.log(tt);
+        console.log(tt.cancel);
         
     
     
