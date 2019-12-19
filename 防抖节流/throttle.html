@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>002</title>
+    <style>
+        .main {
+            width: 400px;
+            height: 2000px;
+            background-color: #BCE8F1;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+    
+    
+    <div class="main">
+        <button id="submit" onclick="tt()">点击throttle</button>
+        <p>ff</p>
+        <button onclick="tt.cancel()">取消throttle</button>
+    </div>
+    
+    
+    <script>
+        
+        function test() {
+            console.log(200);
+        }
+        // 节流分两种，头部执行(head)和尾部执行(trail)
+        // 1，头部执行(head)
+        const throttle01 = (fn, wait) => {
+            let timer = 0;
+            
+            return (...args) => {
+                if (!timer) {
+                    fn.apply(this, args);
+                    timer = setTimeout(() => {
+                        timer = 0;
+                    }, wait)
+                }
+            }
+        };
+        // 2，尾部执行(trail)
+        const throttle02 = (fn, wait) => {
+            let timer = 0;
+    
+            return (...args) => {
+                if (!timer) {
+                    fn.apply(this, args);
+                    timer = setTimeout(() => {
+                        timer = 0;
+                    }, wait)
+                }
+            }
+        };
+        
+        // 3，合并在一起
+        const throttle = (fn, wait = 50, options = 'head') => {
+            let timer = 0;
+            
+            let throttled = (...args) => {
+                if (!timer) {
+                    if (options === 'head') {
+                        fn.apply(this, args);
+                        timer = setTimeout(() => {
+                            timer = 0;
+                        }, wait)
+                    } else {
+                        timer = setTimeout(() => {
+                            fn.apply(this, args);
+                            timer = 0;
+                        }, wait)
+                    }
+                }
+            };
+            
+            throttled.cancel = () => {
+                clearTimeout(timer);
+                timer = 0;
+            };
+    
+            return throttled;
+        };
+
+        window.addEventListener('scroll', throttler(test, 500))
+
+
+
+
+
+    </script>
+</body>
+</html>
