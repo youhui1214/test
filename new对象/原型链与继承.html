@@ -18,7 +18,6 @@
     
         Food.prototype.getName = function () {
             const tt = this.name + ':' + this.age;
-        
             console.log(tt);
         };
     
@@ -37,7 +36,7 @@
         console.log(d1.constructor); // Food
         // 为什么是Food？因为Dog.prototype = new Food('big dog')时，Dog.prototype被重写覆盖掉了原来constructor
         
-        console.log(d1.__proto__);  // Food
+        console.log(d1.__proto__);  // Food {}
         console.log(d1.__proto__ === Dog.prototype);  // true
         console.log(d1.__proto__.__proto__ === Food.prototype);  // true
         console.log(Dog.prototype.__proto__ === Food.prototype);  // true
@@ -54,7 +53,8 @@
         d1.getName();  // 继承Food的方法
     
     
-    
+    // 原型继承的问题：1，由于继承的函数都是绑定在prototype属性上的，所以都可以被实例共享和修改。
+        // 2，在创建子类实例时，不方便传参数
     
     
     
