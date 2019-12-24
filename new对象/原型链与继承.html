@@ -11,8 +11,47 @@
     
     <script>
     
+        function Food(name) {
+            this.name = name;
+            this.age = 20;
+        }
     
+        Food.prototype.getName = function () {
+            const tt = this.name + ':' + this.age;
+        
+            console.log(tt);
+        };
     
+        function Dog(job) {
+            this.job = job;
+            this.name = 'dog';
+        }
+    
+        Dog.prototype = new Food('big dog'); // new实例化来实现原型链继承
+
+         // Dog.prototype.constructor = Dog; // 这样实例化的对象的constructor才能正确指向构造函数
+    
+        let d1 = new Dog('room');
+    
+        console.log(d1);  // Dog
+        console.log(d1.constructor); // Food
+        // 为什么是Food？因为Dog.prototype = new Food('big dog')时，Dog.prototype被重写覆盖掉了原来constructor
+        
+        console.log(d1.__proto__);  // Food
+        console.log(d1.__proto__ === Dog.prototype);  // true
+        console.log(d1.__proto__.__proto__ === Food.prototype);  // true
+        console.log(Dog.prototype.__proto__ === Food.prototype);  // true
+    
+        console.log(d1.name);  // dog
+        console.log(d1.age);  // 20     通过原型链向上查找
+    
+        
+        // Dog.prototype 是一个对象（当成对象来看）
+        console.log(Dog.prototype);  // Food {}
+        console.log(Dog.prototype.__proto__ === Food.prototype);   // true
+        console.log(Dog.prototype.constructor === Food);  // true
+        
+        d1.getName();  // 继承Food的方法
     
     
     

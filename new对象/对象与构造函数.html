@@ -16,6 +16,14 @@
                 console.log(this.name);
             }
         }
+
+        // 实例共享的属性和方法放在prototype对象中
+        Food.prototype.getAge = function () {
+            const tt = this.name + ':' + this.age;
+            console.log(tt);
+        };
+        Food.prototype.job = '前端开发工程师';
+        
         
         let p1 = new Food('ff', 55);
         
