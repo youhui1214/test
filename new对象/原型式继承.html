@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>原型式继承/Object.create</title>
+</head>
+<body>
+    <div>原型式继承/Object.create</div>
+
+    <script>
+    
+        function foo(o) {
+            function F() { }
+            F.prototype = o;
+            return new F();
+        }
+        
+        let person = {
+            name: 'hu',
+            friends: ['you', 'me']
+        };
+        
+        let p1 = foo(person);
+        let p2 = foo(person);
+
+        // ES6写法
+        let p3 = Object.create(person);
+        let p4 = Object.create(person);
+        
+        console.log(p1);  // F() {}
+        console.log(p1.constructor); // Object
+        console.log(p1.__proto__ === person); // true  其实就是把p1的指针指向了person
+        
+        console.log(p1.name);  // hu
+        
+        console.log(p2);  // F() {}
+        console.log(p2.name);  // hu
+        
+        console.log(p3);  // {}
+        console.log(p3.constructor);  // Object
+        console.log(p3.__proto__ === person);  // true
+        
+        console.log(p3.name);  // hu
+        
+        p1.name = 'huo';
+        console.log(p1.name);  // huo
+        console.log(p2.name);  // hu
+
+        
+        p1.friends.push('www');
+        console.log(p1);
+        console.log(p1.friends); // ["you", "me", "www"]
+        console.log(p2.friends);  // ["you", "me", "www"]
+        console.log(p3.friends);  // ["you", "me", "www"]
+        console.log(p1.name === p2.name);  // false      指针指向不同的地址
+        console.log(p1.friends === p2.friends);  // true  指针指向相同的地址
+        console.log(p3.friends === p2.friends);  // true  指针指向相同的地址
+        console.log(p3.friends === p4.friends);  // true  指针指向相同的地址
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
