@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>002</title>
+</head>
+<body>
+    
+    
+    <script>
+    
+    
+        function Food(name, age) {
+            this.name = name;
+            this.age = age;
+            this.getName = function () {
+                console.log(this.name);
+            }
+        }
+        
+        let p1 = new Food('ff', 55);
+        
+        console.log(p1);
+        console.log(p1.constructor === Food); // Foo  true
+        console.log(p1.__proto__ === Food.prototype); // Foo  true
+        console.log(p1.constructor.prototype === Food.prototype); // { constructor: Foo}  true
+        
+        let obj = new Object();
+        
+        console.log(obj); // {}
+        console.log(obj.constructor === Object); // Object
+        console.log(obj.__proto__ === Object.prototype);   // Object
+        console.log(obj.constructor.prototype === Object.prototype); // { constructor: Object}  true
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
