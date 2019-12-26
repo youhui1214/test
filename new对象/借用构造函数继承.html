@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>借用构造函数继承</title>
+</head>
+<body>
+    <div>借用构造函数继承</div>
+    <div>
+        问题：1,构造函数因为是值的复制，所以方法不能复用
+             2,定义在prototype中的属性和方法，不能继承使用。因为构造函数的prototype只能给自己的实例共享。
+               也可以从new做的事情中理解，少了一步
+    </div>
+    
+    
+    <script>
+    
+        function Foo(name) {
+            this.name = name;
+            this.colors = ['001', '002', 'red'];
+            
+            console.log(this); // Dog {}
+            console.log(this.name);  // hui
+        }
+        Foo.prototype.job = 'sf';
+        Foo.prototype.getAge = function () {
+            console.log(200);
+        };
+        
+        function Dog(name, age) {
+            this.name = name;
+            this.age = age;
+            Foo.call(this, 'hui'); // 执行构造函数，相当于在内存中新开辟地址来存储，而不是使用指针
+            
+        }
+        
+        let d1 = new Dog('you', 22);
+        let d2 = new Dog('hu', 33);
+        
+        console.log(d1); // Dog {}
+        console.log(d1.constructor); // Dog
+        console.log(d1.__proto__ === Dog.prototype); // true
+        console.log(d1.__proto__ === Foo.prototype); // false
+        // 因为是内存中新的地址存储，不是指针，所以与prototype无关
+        
+        
+        console.log(d1.name); // hui
+        console.log(d1.colors);  // ["001", "002", "red"]
+        
+        console.log(d1.job);  // undefined
+        console.log(d1.getAge());  // error
+
+        d1.colors.push('black');
+    
+        console.log(d2.colors); // ["001", "002", "red"]
+        
+    </script>
+</body>
+</html>
