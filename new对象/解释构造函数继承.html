@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>index</title>
+</head>
+<body>
+    
+    <div>
+        总结：函数只是调用执行，作用域，指针等还是和属性有关系。
+    </div>
+    
+    <script>
+    
+        function foo(name) {
+            this.name = name;
+            this.age = 20;
+        }
+        
+        
+        function dog(name) {
+            this.name = name;
+            this.job = 'sf';
+            
+            foo('hu');
+        }
+        
+        dog('youhui');
+        
+        console.log(this); // window
+        console.log(window === this);  // true
+        console.log(window.name);  // hu
+        console.log(window.job);  // sf
+        console.log(window.age);  // 20
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>

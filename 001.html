@@ -9,53 +9,21 @@
     
     <script>
     
-        function Person(name, age) {
-            this.name = name;
-            this.age = age;
-        }
-        
-        Person.prototype.getName = function () {
-            const tt = this.name + ':' + this.age;
-            console.log(tt);
-        };
-        
-        Person.prototype.job = 'sf';
     
     
-    
-        let p1 = new Person('huhu', 20);
-        let p2 = new Person('you', 24);
-    
-    
-        class Point {
-            constructor(x, y, name) {
-                this.x = x;
-                this.y = y;
-                this.name = name;
-            
+        class Foo {
+            static bar() {
+                this.baz();
             }
-            
-            age = 10;
-            
-            getName() {
-                const tt = this.x + ':' + this.name;
-                console.log(tt);
-                
+            static baz() {
+                console.log('hello');
+            }
+            baz() {
+                console.log('world');
             }
         }
-        
-        let po1 = new Point(1,2,'gg');
-        let po2 = new Point(10,22,'ff');
-        
-        console.log(po1);
-        console.log(po1.age);
-        po1.age = 33;
-        
-        console.log(po2);
-        console.log(po2.age);
-        
-        
     
+        Foo.bar() // hello
     
     
     

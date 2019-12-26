@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>class类</title>
+</head>
+<body>
+    <div>class类</div>
+    
+    <script>
+    
+        function Foo(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        
+        Foo.prototype.getName = function () {
+            console.log('foo');
+        };
+        
+        
+        let f1 = new Foo('hu', 33);
+        
+        console.log(f1);
+        console.log(f1.name);
+        f1.getName();
+        
+        
+        class Point {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+                this.count = 100;
+            }
+            
+            job = 'job';
+            
+            getName() {
+                console.log('po');
+            }
+        }
+        
+        let p1 = new Point('point', 22);
+        
+        console.log(p1);
+        console.log(p1.age);
+        // Point.getName(); // po
+        // p1.getName();    // error  static的方法只能类来调用，不会被实例继承
+    
+    
+        class Bar extends Point {
+            constructor(name, age) {
+                super(name, age);
+            }
+        
+        }
+    
+        let b1 = new Bar('bar', 11);
+        
+        console.log(b1.name);  // bar
+        console.log(b1.count);  // 100
+        console.log(b1.job);   // job
+        b1.getName();  // po
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
