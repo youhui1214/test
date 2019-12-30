@@ -12,62 +12,6 @@
     <script>
     
     
-        function Food(name) {
-            this.name = name;
-            this.age = 20;
-        }
-        
-        Food.prototype.getName = function () {
-            const tt = this.name + ':' + this.age;
-            
-            console.log(tt);
-        };
-        
-        function Dog(job) {
-            this.job = job;
-            this.name = 'dog';
-        }
-        
-        Dog.prototype = new Food('big dog');
-        
-        let d1 = new Dog('room');
-        
-        console.log(d1);
-        console.log(d1.constructor);
-        console.log(d1.__proto__);
-        
-        console.log(d1.name);
-        console.log(d1.age);
-        
-        console.log(Dog.prototype);
-        console.log(Food.prototype);
-        
-        d1.getName();
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     </script>

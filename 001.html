@@ -7,63 +7,45 @@
 </head>
 <body>
     
+    <div id="tt">
+        fff
+    </div>
+    
+    <button id="btn">click</button>
     <script>
     
-        function Person(name, age) {
-            this.name = name;
-            this.age = age;
-        }
-        
-        Person.prototype.getName = function () {
-            const tt = this.name + ':' + this.age;
-            console.log(tt);
+        let book = {
+            _year: 2019,
+            edition: 1
         };
+    
+        let tt  = document.getElementById('tt');
+        let btn  = document.getElementById('btn');
         
-        Person.prototype.job = 'sf';
-    
-    
-    
-        let p1 = new Person('huhu', 20);
-        let p2 = new Person('you', 24);
-    
-    
-        class Point {
-            constructor(x, y, name) {
-                this.x = x;
-                this.y = y;
-                this.name = name;
-            
-            }
-            
-            age = 10;
-            
-            getName() {
-                const tt = this.x + ':' + this.name;
-                console.log(tt);
-                
-            }
-        }
+        console.log(btn);
+        tt.innerText = book._year + book.edition;
         
-        let po1 = new Point(1,2,'gg');
-        let po2 = new Point(10,22,'ff');
+        btn.addEventListener('click', function () {
+            Object.defineProperty(book, 'year', {
+                get() {
+                    return this._year;
+                },
         
-        console.log(po1);
-        console.log(po1.age);
-        po1.age = 33;
+                set(newVal) {
+                    if (newVal > 2019) {
+                        this._year = newVal;
+                        this.edition += newVal - 2019;
+                    }
+                }
+            });
+    
+            book.year = 2020;
+        });
+    
+    
+    
+    
         
-        console.log(po2);
-        console.log(po2.age);
-        
-        
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     

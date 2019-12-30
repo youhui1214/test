@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>defineProperty</title>
+</head>
+<body>
+    
+    <script>
+        
+        let person = {
+            name: 'you'
+        };
+        
+        let age = 22;
+        
+        Object.defineProperty(person, 'age', {
+            configurable: false,   //  不能delete
+            enumerable: true,      //  可枚举
+            // writable: true,        //  可修改
+            
+            get() {
+                return age;
+            },
+            
+            set(newVal) {
+                console.log('我改变了' + newVal);
+                age = newVal;
+            }
+        });
+    
+        
+        console.log(person.name); // you
+        console.log(person.age);  // 22
+        
+        person.age = 33;   // 我改变了33
+        
+        console.log(person.age);   // 33
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
