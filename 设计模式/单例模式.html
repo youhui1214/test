@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>单例模式</title>
+</head>
+<body>
+    <div>单例模式</div>
+    
+    <script>
+    
+        class Foo {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            
+            job = 'sf';
+            
+            getName() {
+                console.log(this.name);
+            }
+        }
+
+        let store = null;
+    
+        function getOne() {
+            if (!store) store = new Foo();
+            
+            return store;
+        }
+        
+        let tt01 = getOne();
+        let tt02 = getOne();
+        let tt03 = getOne();
+        console.log(tt01);
+        console.log(tt02);
+        
+        console.log(tt01 === tt02); // true
+        console.log(tt02 === tt03);  // true
+        
+        let f1 = new Foo();
+        let f2 = new Foo();
+        
+        console.log(f1);
+        console.log(f2);
+        
+        console.log(f1 === f2); // false ,因为new相当于在内存重新开辟空间复制
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    </script>
+</body>
+</html>
