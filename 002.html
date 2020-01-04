@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>002</title>
+</head>
+<body>
+    
+    
+    
+    
+    <script>
+        
+        let saleOffices = {};   // 售楼处
+    
+        saleOffices.clientList = [];   // 花名册，用来存订阅者的信息
+    
+    
+        saleOffices.addClient = function (key, fn) {   //   增加订阅者
+            if (!this.clientList[key]) this.clientList[key] = [];
+            this.clientList[key].push(fn);
+        };
+    
+        saleOffices.sendNews = function () {            //   发布消息
+            // let key = Array.prototype.shift.call(arguments);
+            // console.log(key);
+            console.log(Array.prototype.shift.call);
+            console.log(arguments);
+        
+            let fns = this.clientList[key];
+        
+            if (!fns || fns.length === 0) return false;
+        
+            for (let i = 0; i < fns.length; i++) {
+                fns[i].apply(this, arguments)
+            }
+        };
+    
+        saleOffices.addClient('80', function (price, square) {
+            console.log('价格' + price);
+            console.log('平方'+square);
+        });
+
+        saleOffices.sendNews('80',200);
+        
+        
+        
+    </script>
+</body>
+</html>

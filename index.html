@@ -10,11 +10,27 @@
 
     <script>
     
+        let list = ['ss', '001'];
+        
+        list['ss'] = ['fff']
+        
+        // console.log(list['ss']);
+        // console.log(list);
+        
+        let obj = {};
+        
+        obj.getName = function () {
+            // fn();
+            // console.log(name);
+            
+            console.log(arguments);
+            
+        };
+        
     
-    
-    
-    
-    
+        obj.getName('ff',function () {
+            console.log('fn');
+        });
     
     
     
