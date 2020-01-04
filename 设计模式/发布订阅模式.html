@@ -18,19 +18,36 @@
             },
             trigger: function () {            //   发布消息
                 // let key = Array.prototype.shift.call(arguments);
-               let key = [...arguments].shift();  // 保证arguments数组
+                let key = [...arguments].shift();  // 保证arguments数组
                 
                 let fns = this.clientList[key];
-    
+                
                 if (!fns || fns.length === 0) return false;
-    
+                
                 for (let i = 0; i < fns.length; i++) {
                     fns[i].apply(this, arguments)
                 }
+            },
+            remove: function (key, fn) {
+                let fns = this.clientList[key];
+                
+                if (!fns) return false;
+                
+                if (!fn) {
+                    fns && (fns.length = 0)
+                } else {
+                    for (let len = fns.length - 1; len >= 0; len--) {
+                        let _fn = fns[len];
+                        if (_fn === fn) {
+                            fns.splice(len, 1);
+                        }
+                    }
+                }
+                
             }
         };
         
-        let installEvent = function(obj) {
+        let installEvent = function (obj) {
             for (let i in event) {
                 obj[i] = event[i]
             }
@@ -42,17 +59,16 @@
         
         saleOffices.listen('80', function (price, square) {
             console.log('价格' + price);
-            console.log('平方'+square);
+            console.log('平方' + square);
         });
-
-        saleOffices.listen('100' ,function (price, square) {
+        
+        saleOffices.listen('100', function (price, square) {
             console.log('价格' + price);
-            console.log('平方'+square);
+            console.log('平方' + square);
         });
         
-        saleOffices.trigger('80',200);
+        saleOffices.trigger('80', 200);
         // saleOffices.sendNews(300, 188);
-        
     
     
     </script>
