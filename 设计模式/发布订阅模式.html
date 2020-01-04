@@ -7,7 +7,8 @@
 </head>
 <body>
     <div>发布订阅模式</div>
-    
+    <button id="btn">click</button>
+    <div id="show"></div>
     <script>
         
         // 全局发布订阅对象
@@ -23,8 +24,7 @@
             };
     
             trigger = function () {            //   发布消息
-                // let key = Array.prototype.shift.call(arguments);
-                let key = [...arguments].shift();  // 保证arguments数组
+                let key = Array.prototype.shift.call(arguments);  // 保证arguments数组
                 let fns = clientList[key];
         
                 if (!fns || fns.length === 0) return false;
@@ -58,14 +58,30 @@
         
         })();
         
-        console.log(Event);
+        /*console.log(Event);
 
         Event.listen('80', function (price, square) {
             console.log('价格' + price);
             console.log('平方' + square);
         });
 
-        Event.trigger('80', 200);
+        Event.trigger('80', 200);*/
+        
+        
+        let a = (function () {
+            let count = 0;
+            let btn = document.getElementById('btn');
+            btn.onclick = function () {
+                Event.trigger('add', count++);
+            }
+        })();
+        
+        let b = (function () {
+            let showText = document.getElementById('show');
+            Event.listen('add', function (count) {
+                showText.innerHTML = count;
+            })
+        })();
     
     
     </script>
