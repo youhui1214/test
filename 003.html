@@ -6,34 +6,35 @@
     <title>003</title>
 </head>
 <body>
-    <div>003</div>
+    <div id="root"><div>name</div></div>
+    
+    
+    <button onclick="clickNode()">click</button>
     
     <script>
     
     
-    
-    
-        class Watcher {
-            constructor(name, age) {
-                this.name = name;
-                this.age = age;
-                
-                this.update()
-            }
+        let el = document.querySelector('#root');
         
-            update() {
-                console.log(200);
-                
-                this.name = 2000;
-            }
+        let nodes = el.childNodes;
+        
+        let type = nodes[0].nodeType;
+        
+        let node = nodes[0];
+        
+        console.log(el);
+        console.log(nodes);
+        console.log(node);
+        
+        console.log(type);
+        
+        
+        function clickNode() {
+            node.textContent = 'ffff';
         }
-        
-        
-        
-        console.log(new Watcher());
-        
-        
-        
+    
+    
+    
     
     
     

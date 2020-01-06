@@ -8,11 +8,7 @@
 </head>
 <body>
     
-    <div id="wrap">
-        <p v-html="test"></p>
-        <input type="text" v-model="form">
-        <input type="text" v-model="form">
-        <button @click="changeValue">改变值</button>
+    <div id="wrap"><input type="text" v-model="form">
         {{form}}
     </div>
     
@@ -22,29 +18,10 @@
             constructor(options = {}) {
                 this.$el = document.querySelector(options.el);
                 let data = this.data = options.data;
-                // 代理data，使其能直接this.xxx的方式访问data，正常的话需要this.data.xxx
-                Object.keys(data).forEach((key) => {
-                    this.proxyData(key);
-                });
-                this.methods = options.methods; // 事件方法
+               
                 this.watcherTask = {}; // 需要监听的任务列表
                 this.observer(data); // 初始化劫持监听所有数据
                 this.compile(this.$el); // 解析dom
-            }
-        
-            proxyData(key) {
-                let that = this;
-            
-                Object.defineProperty(that, key, {
-                    configurable: false,
-                    enumerable: true,
-                    get() {
-                        return that.data[key];
-                    },
-                    set(newValue) {
-                        that.data[key] = newValue;
-                    }
-                })
             }
         
             observer(data) {
@@ -63,7 +40,7 @@
                             if (newValue !== value) {
                                 value = newValue;
                                 that.watcherTask[key].forEach(task => {
-                                    task.update();
+                                    task.update();   // 实例调用自己的update方法
                                 })
                             }
                         }
@@ -84,28 +61,18 @@
                             this.compile(node)
                         }
                         if (node.hasAttribute('v-model') && (node.tagName === 'INPUT' || node.tagName === 'TEXTAREA')) {
-                            node.addEventListener('input', (() => {
-                                let attrVal = node.getAttribute('v-model');
-                                this.watcherTask[attrVal].push(new Watcher(node, this, attrVal, 'value'));
-                                node.removeAttribute('v-model');
-                                return () => {
-                                    this.data[attrVal] = node.value
-                                }
-                            })())
-                        }
-                        if (node.hasAttribute('v-html')) {
-                            let attrVal = node.getAttribute('v-html');
-                            this.watcherTask[attrVal].push(new Watcher(node, this, attrVal, 'innerHTML'));
-                            node.removeAttribute('v-html')
-                        }
-                        this.compileText(node, 'innerHTML');
-                        if (node.hasAttribute('@click')) {
-                            let attrVal = node.getAttribute('@click');
-                            node.removeAttribute('@click');
-                            node.addEventListener('click', e => {
-                                this.methods[attrVal] && this.methods[attrVal].bind(this)()
+    
+                            let attrVal = node.getAttribute('v-model');
+                            this.watcherTask[attrVal].push(new Watcher(node, this, attrVal, 'value'));
+                            node.removeAttribute('v-model');
+                            
+                            // 监听input输入框，然后改变data中的值来触发defineProperty的setter
+                            node.addEventListener('input', () => {
+                                this.data[attrVal] = node.value
                             })
                         }
+                        
+                        
                     }
                 }
             }
@@ -114,17 +81,10 @@
                 let reg = /\{\{(.*?)\}\}/g, txt = node.textContent;
                 if (reg.test(txt)) {
                     node.textContent = txt.replace(reg, (matched, value) => {
-                        let tpl = this.watcherTask[value] || [];
-                        tpl.push(new Watcher(node, this, value, type));
-                        if (value.split('.').length > 1) {
-                            let v = null;
-                            value.split('.').forEach((val, i) => {
-                                v = !v ? this[val] : v[val]
-                            });
-                            return v
-                        } else {
-                            return this[value]
-                        }
+                        
+                        this.watcherTask[value].push(new Watcher(node, this, value, type));
+                        
+                        return this.data[value];
                     })
                 }
             }
@@ -144,21 +104,12 @@
             }
         }
     
-    
-        
-    
         new Vue({
             el: '#wrap',
             data:{
                 form: '这是form的值',
                 test: '<strong>我是粗体</strong>',
             },
-            methods:{
-                changeValue(){
-                    console.log(this.form);
-                    this.form = '值被我改变了，气不气？'
-                }
-            }
         })
         
     </script>
