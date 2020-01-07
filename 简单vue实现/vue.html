@@ -72,7 +72,6 @@
                             })
                         }
                         
-                        
                     }
                 }
             }
@@ -80,12 +79,9 @@
             compileText(node, type) {
                 let reg = /\{\{(.*?)\}\}/g, txt = node.textContent;
                 if (reg.test(txt)) {
-                    node.textContent = txt.replace(reg, (matched, value) => {
-                        
-                        this.watcherTask[value].push(new Watcher(node, this, value, type));
-                        
-                        return this.data[value];
-                    })
+                    
+                    this.watcherTask['form'].push(new Watcher(node, this, 'form', type));
+                    
                 }
             }
         }
