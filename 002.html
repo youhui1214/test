@@ -7,59 +7,88 @@
 </head>
 <body>
     
-    <div>测试</div>
-    
-    <input type="text" id="inputVal" value="这是form的值" oninput="changeInput()">
-    <div id="root">
-        100
+    <div id="root"><input type="text" v-model="form">
+        {{form}}
     </div>
     
-    
+    <button id="btn">click</button>
     <script>
-        
-        function changeInput() {
-            let inputVal = document.getElementById('inputVal');
-            
-            console.log(inputVal.value);
-            
-            data.name = inputVal.value;
-        }
-        
         let data = {
-            name: 'huhu',
-            age: 20
+            el: '#wrap',
+            data:{
+                from: '这是form的值',
+                test: '<strong>我是粗体</strong>',
+            },
         };
         
-        Object.defineProperty(data, 'name', {
-            set(newVal) {
-                if (newVal !== 'huhu') {
-                    // data.name = newVal;
-                    document.getElementById('root').innerText = newVal;
-                }
+        let watcherTask = [];
+        
+
+        class Watcher {
+            constructor(el, vm, value, type) {
+                this.el = el;
+                this.vm = vm;
+                this.value = value;
+                this.type = type;
+                this.update()
             }
-        });
-        
-        data.name = 'youhui';
-        
-        console.log(data);
-        
-        
-        
-        
-        
-        
-        
-        
-        /*console.log(Object.keys(data));
-        
-        Object.keys(data).forEach(key => {
-            // console.log(key);
+    
+            update() {
+                console.log(this.el);
+                this.el[this.type] = this.vm.data[this.value]
+            }
+        }
+    
+        let el = document.querySelector('#root');
+
+
+        let nodes = el.childNodes;
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            if (node.nodeType === 3) {
+                var text = node.textContent.trim();
+                if (!text) continue;
+    
+                // node['textContent'] = data.data['form'];
+                
+                watcherTask.push(new Watcher(node, data, 'from', 'textContent'))
+                
+                // this.compileText(node, 'textContent')
+            } else if (node.nodeType === 1) {
+                
+                if (node.hasAttribute('v-model') && node.tagName === 'INPUT') {
             
-            let val = data[key];
+                    let attrVal = node.getAttribute('v-model');
+                    // this.watcherTask[attrVal].push(new Watcher(node, this, attrVal, 'value'));
+    
+                    // node['value'] = data.data['form'];
+                    watcherTask.push(new Watcher(node, data, 'from', 'value'));
+                    
+                    node.removeAttribute('v-model');
             
-            console.log(val);
+                    // 监听input输入框，然后改变data中的值来触发defineProperty的setter
+                    node.addEventListener('input', () => {
+                        this.data[attrVal] = node.value
+                    })
+                }
         
-        })*/
+            }
+        }
+
+
+
+        let btn = document.querySelector('#btn');
+
+        btn.addEventListener('click', function () {
+            console.log('click');
+    
+            watcherTask.forEach(item => {
+                item.update();
+            })
+    
+        })
+        
+    
     
     
     </script>

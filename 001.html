@@ -13,46 +13,50 @@
     
     <button id="btn">click</button>
     <script>
-    
-        let book = {
-            _year: 2019,
-            edition: 1
-        };
-    
-        let tt  = document.getElementById('tt');
-        let btn  = document.getElementById('btn');
         
-        console.log(btn);
-        tt.innerText = book._year + book.edition;
+        let data = {
+            form: '这是form的值',
+            test: '<strong>我是粗体</strong>',
+        };
+        
+        let data02 = {
+            form: '这是form的值0002',
+            test: '<strong>我是粗体</strong>',
+        };
+        
+        
+        class Watcher {
+            constructor(name, age, data) {
+                this.name = name;
+                this.age = age;
+                this.data = data;
+                this.update()
+            }
+            
+            update() {
+                this.name = this.data.form;
+                console.log(this.name);
+            }
+        }
+        
+        let task = [];
+        
+        task.push(new Watcher('youhui', 20, data));
+        task.push(new Watcher('hui', 2, data02));
+        
+        
+        let btn = document.querySelector('#btn');
         
         btn.addEventListener('click', function () {
-            Object.defineProperty(book, 'year', {
-                get() {
-                    return this._year;
-                },
-        
-                set(newVal) {
-                    if (newVal > 2019) {
-                        this._year = newVal;
-                        this.edition += newVal - 2019;
-                    }
-                }
-            });
-    
-            book.year = 2020;
-        });
-    
-    
-    
-    
-        
-    
-    
-    
-    
-    
-    
-    
+            console.log('click');
+            
+            task.forEach(item => {
+                item.update();
+            
+            
+            })
+            
+        })
     
     
     </script>

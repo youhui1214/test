@@ -10,27 +10,26 @@
 
     <script>
     
-        let list = ['ss', '001'];
+        class Point {
+            constructor(name, age) {
+                this.name = name;
+                this.age = age;
+                this.count = 100;
+            }
         
-        list['ss'] = ['fff']
+            job = 'job';
         
-        // console.log(list['ss']);
-        // console.log(list);
+            getName() {
+                console.log('po');
+            }
+        }
         
-        let obj = {};
+        let p1 = new Point('ff', 33);
+        let p2 = new Point('fkk', 30);
         
-        obj.getName = function () {
-            // fn();
-            // console.log(name);
-            
-            console.log(arguments);
-            
-        };
-        
-    
-        obj.getName('ff',function () {
-            console.log('fn');
-        });
+        console.log(p1 === p2);
+        console.log(p1.getName === p2.getName); // true
+        console.log(p1.name === p2.name);  // false
     
     
     
