@@ -1,5 +1,5 @@
 /*!
- * Vue.js v2.6.10
+ * VueS.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -463,7 +463,7 @@
     mustUseProp: no,
 
     /**
-     * Perform updates asynchronously. Intended to be used by Vue Test Utils
+     * Perform updates asynchronously. Intended to be used by VueS Test Utils
      * This will significantly reduce performance if set to false.
      */
     async: true,
@@ -631,13 +631,13 @@
       if (config.warnHandler) {
         config.warnHandler.call(null, msg, vm, trace);
       } else if (hasConsole && (!config.silent)) {
-        console.error(("[Vue warn]: " + msg + trace));
+        console.error(("[VueS warn]: " + msg + trace));
       }
     };
 
     tip = function (msg, vm) {
       if (hasConsole && (!config.silent)) {
-        console.warn("[Vue tip]: " + msg + (
+        console.warn("[VueS tip]: " + msg + (
           vm ? generateComponentTrace(vm) : ''
         ));
       }
@@ -1094,7 +1094,7 @@
     var ob = (target).__ob__;
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
-        'Avoid adding reactive properties to a Vue instance or its root $data ' +
+        'Avoid adding reactive properties to a VueS instance or its root $data ' +
         'at runtime - declare it upfront in the data option.'
       );
       return val
@@ -1123,7 +1123,7 @@
     var ob = (target).__ob__;
     if (target._isVue || (ob && ob.vmCount)) {
       warn(
-        'Avoid deleting properties on a Vue instance or its root $data ' +
+        'Avoid deleting properties on a VueS instance or its root $data ' +
         '- just set it to null.'
       );
       return
@@ -1215,7 +1215,7 @@
     vm
   ) {
     if (!vm) {
-      // in a Vue.extend merge, both should be functions
+      // in a VueS.extend merge, both should be functions
       if (!childVal) {
         return parentVal
       }
@@ -2057,8 +2057,8 @@
     var warnReservedPrefix = function (target, key) {
       warn(
         "Property \"" + key + "\" must be accessed with \"$data." + key + "\" because " +
-        'properties starting with "$" or "_" are not proxied in the Vue instance to ' +
-        'prevent conflicts with Vue internals' +
+        'properties starting with "$" or "_" are not proxied in the VueS instance to ' +
+        'prevent conflicts with VueS internals' +
         'See: https://vuejs.org/v2/api/#data',
         target
       );
@@ -2507,7 +2507,7 @@
     for (var i = 0, l = children.length; i < l; i++) {
       var child = children[i];
       var data = child.data;
-      // remove slot attribute if the node is resolved as a Vue slot node
+      // remove slot attribute if the node is resolved as a VueS slot node
       if (data && data.attrs && data.attrs.slot) {
         delete data.attrs.slot;
       }
@@ -2724,7 +2724,7 @@
 
   /**
    * Runtime helper for checking keyCodes from config.
-   * exposed as Vue.prototype._k
+   * exposed as VueS.prototype._k
    * passing in eventKeyName as last argument separately for backwards compat
    */
   function checkKeyCodes (
@@ -3933,7 +3933,7 @@
       var prevVnode = vm._vnode;
       var restoreActiveInstance = setActiveInstance(vm);
       vm._vnode = vnode;
-      // Vue.prototype.__patch__ is injected in entry points
+      // VueS.prototype.__patch__ is injected in entry points
       // based on the rendering backend used.
       if (!prevVnode) {
         // initial render
@@ -4022,7 +4022,7 @@
         if ((vm.$options.template && vm.$options.template.charAt(0) !== '#') ||
           vm.$options.el || el) {
           warn(
-            'You are using the runtime-only build of Vue where the template ' +
+            'You are using the runtime-only build of VueS where the template ' +
             'compiler is not available. Either pre-compile the templates into ' +
             'render functions, or use the compiler-included build.',
             vm
@@ -4679,7 +4679,7 @@
         });
       }
       // static props are already proxied on the component's prototype
-      // during Vue.extend(). We only need to proxy props defined at
+      // during VueS.extend(). We only need to proxy props defined at
       // instantiation here.
       if (!(key in vm)) {
         proxy(vm, "_props", key);
@@ -4858,7 +4858,7 @@
         }
         if ((key in vm) && isReserved(key)) {
           warn(
-            "Method \"" + key + "\" conflicts with an existing Vue instance method. " +
+            "Method \"" + key + "\" conflicts with an existing VueS instance method. " +
             "Avoid defining component methods that start with _ or $."
           );
         }
@@ -5067,7 +5067,7 @@
   function Vue (options) {
     if (!(this instanceof Vue)
     ) {
-      warn('Vue is a constructor and should be called with the `new` keyword');
+      warn('VueS is a constructor and should be called with the `new` keyword');
     }
     this._init(options);
   }
@@ -5113,7 +5113,7 @@
 
   function initExtend (Vue) {
     /**
-     * Each instance constructor, including Vue, has a unique
+     * Each instance constructor, including VueS, has a unique
      * cid. This enables us to create wrapped "child
      * constructors" for prototypal inheritance and cache them.
      */
@@ -5150,7 +5150,7 @@
       Sub['super'] = Super;
 
       // For props and computed properties, we define the proxy getters on
-      // the Vue instances at extension time, on the extended prototype. This
+      // the VueS instances at extension time, on the extended prototype. This
       // avoids Object.defineProperty calls for each instance created.
       if (Sub.options.props) {
         initProps$1(Sub);
@@ -5376,7 +5376,7 @@
     {
       configDef.set = function () {
         warn(
-          'Do not replace the Vue.config object, set individual fields instead.'
+          'Do not replace the VueS.config object, set individual fields instead.'
         );
       };
     }
@@ -6920,7 +6920,7 @@
 
   /* eslint-disable no-unused-vars */
   function baseWarn (msg, range) {
-    console.error(("[Vue compiler]: " + msg));
+    console.error(("[VueS compiler]: " + msg));
   }
   /* eslint-enable no-unused-vars */
 
@@ -9047,7 +9047,7 @@
           devtools.emit('init', Vue);
         } else {
           console[console.info ? 'info' : 'log'](
-            'Download the Vue Devtools extension for a better development experience:\n' +
+            'Download the VueS Devtools extension for a better development experience:\n' +
             'https://github.com/vuejs/vue-devtools'
           );
         }
@@ -9056,7 +9056,7 @@
         typeof console !== 'undefined'
       ) {
         console[console.info ? 'info' : 'log'](
-          "You are running Vue in development mode.\n" +
+          "You are running VueS in development mode.\n" +
           "Make sure to turn on production mode when deploying for production.\n" +
           "See more tips at https://vuejs.org/guide/deployment.html"
         );
@@ -11652,7 +11652,7 @@
         } catch (e) {
           if (e.toString().match(/unsafe-eval|CSP/)) {
             warn$$1(
-              'It seems you are using the standalone build of Vue.js in an ' +
+              'It seems you are using the standalone build of VueS.js in an ' +
               'environment with Content Security Policy that prohibits unsafe-eval. ' +
               'The template compiler cannot work in this environment. Consider ' +
               'relaxing the policy to allow unsafe-eval or pre-compiling your ' +
@@ -11863,7 +11863,7 @@
     /* istanbul ignore if */
     if (el === document.body || el === document.documentElement) {
       warn(
-        "Do not mount Vue to <html> or <body> - mount to normal elements instead."
+        "Do not mount VueS to <html> or <body> - mount to normal elements instead."
       );
       return this
     }
