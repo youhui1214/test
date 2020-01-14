@@ -15,6 +15,7 @@
                 this.name = name;
                 this.age = age;
                 this.count = 100;
+                this.target = null;
             }
         
             job = 'job';
@@ -27,9 +28,28 @@
         let p1 = new Point('ff', 33);
         let p2 = new Point('fkk', 30);
         
-        console.log(p1 === p2);
+        console.log(p1 === p2); // false
         console.log(p1.getName === p2.getName); // true
         console.log(p1.name === p2.name);  // false
+
+        {
+            console.log(200);
+        }
+        
+        console.log(Point);
+        console.log(Point.name);
+        console.log(Point.age);
+        console.log(Point.count);
+        console.log(Point.job);
+        console.log(Point.target);
+        console.log(Point.getName);
+
+        Point.target = null;
+        
+        console.log(Point.target);
+        
+        
+        
     
     
     
