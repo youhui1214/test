@@ -10,25 +10,40 @@
     
     <script>
         
-        // add(1)(2)(3)   6
-        // add(1)(2)   3
+        function add(a, b, c) {
+            return a + b + c
+        }
         
-        var tt = (function (a) {
+        console.log(add.length);
+        
+        let newArgs = [];
+        
+        function curry(fn, arg) {
+            let len = fn.length;
+            let args = arg || [];
             
-            console.log(a);
-            
-            return (function (b) {
-                console.log(b);
+            return function () {
                 
-                return function (c) {
-                    console.log(c);
-                    return a +b +c
+                newArgs = args.concat(Array.prototype.slice.call(arguments));
+                
+                if (newArgs.length < len) {
+                    return curry.call(this, fn, newArgs);
+                } else {
+                    return fn.apply(this, newArgs)
                 }
-            })
-            
-        })(1)(2)(3);
+            }
+        }
         
-        console.log(tt);
+        let tt = curry(add);
+        
+        console.log(tt(4)(2)(3));
+        console.log(tt(4, 2)(3));
+        
+        // let tt = foo();
+        //
+        // console.log(tt);
+        //
+        // console.log(tt(1));
     
     
     </script>

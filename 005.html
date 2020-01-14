@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>005</title>
+</head>
+<body>
+    <div>005</div>
+    
+    
+    <script>
+        
+        // 普通的add函数
+        function add(x, y) {
+            return x + y
+        }
+        
+        var newArgs = [];
+        
+        function currying(fn, args) {
+            var length = fn.length;
+            var args = args || [];
+            return function () {
+                
+                newArgs = args.concat(Array.prototype.slice.call(arguments));
+                
+                if (newArgs.length < length) {
+                    return currying.call(this, fn, newArgs);
+                } else {
+                    return fn.apply(this, newArgs);
+                }
+            }
+        
+        }
+        
+        let tt = currying(add);
+        
+        console.log(tt);
+        console.log(tt(1)(2));
+        
+        
+        
+    
+    
+    </script>
+</body>
+</html>
