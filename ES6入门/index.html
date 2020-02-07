@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>ES6</title>
+</head>
+<body>
+    
+    
+    <script>
+    
+        const queuedObservers = new Set();
+        
+        const observe = fn => queuedObservers.add(fn);
+        const observable = obj => new Proxy(obj, { set });
+
+        function set(target, key, value, receiver) {
+            const result = Reflect.set(target, key, value, receiver);
+            queuedObservers.forEach(fn => fn());  // 执行队列函数
+            return result;
+        }
+
+        
+        const person = observable({
+            name: 'huhu',
+            age: 20
+        });
+        
+        function print() {
+            console.log(`${person.name}, ${person.age}`)
+        }
+        
+        observe(print);
+        
+        person.name = 'lili';
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>001</title>
+</head>
+<body>
+    <script>
+    
+        function timeout(ms) {
+            return new Promise((resolve) => {
+                setTimeout(resolve, ms);
+            });
+        }
+    
+        async function asyncPrint(value, ms) {
+            await timeout(ms);
+            console.log(value);
+        }
+    
+        asyncPrint('hello world', 5000);
+
+
+    </script>
+</body>
+</html>
