@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>001</title>
+    <!--<script src="./test.js"></script>-->
+</head>
+<body>
+    <div>test</div>
+    
+    <script>
+    
+        function MyPromise(fn) {
+            const that = this;
+            that.state = 'pending';
+            that.value = null;
+        
+            // that.resolvedCallbacks = [];
+            // that.rejectedCallbacks = [];
+        
+            function resolve(value) {
+                if (that.state === 'pending') {
+                    that.state = 'resolved';
+                    that.value = value;
+                    
+                }
+            }
+        
+            function reject(value) {
+                if (that.state === 'pending') {
+                    that.state = 'rejected';
+                    that.value = value;
+                   
+                }
+            }
+        
+            try {
+                fn(resolve, reject)
+            } catch (e) {
+                reject(e)
+            }
+        }
+    
+    
+        MyPromise.prototype.then = function (onFulfilled, onRejected) {
+            const that = this;
+            onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : v => v;
+            onRejected = typeof onRejected === 'function' ? onRejected : r => {throw r};
+        
+           
+            if (that.state === 'resolved') {
+                onFulfilled(that.value)
+            }
+        
+            if (that.state === 'rejected') {
+                onRejected(that.value)
+            }
+        
+        };
+
+
+        var tt = new MyPromise((resolve,reject) =>{
+            console.log(200)
+            
+            resolve(111)
+        });
+
+        tt.then((data) => {
+            console.log(data)
+        })
+
+
+
+        
+    </script>
+</body>
+</html>

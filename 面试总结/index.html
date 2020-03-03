@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>面试总结</title>
+</head>
+<body>
+    <script>
+    
+        function foo(fn) {
+            const that = this;
+            that.state = 'pending';
+            that.value = null;
+    
+            function resolve(value) {
+                if (that.state === 'pending') {
+                    that.state = 'resolved';
+                    that.value = value;
+                }
+                console.log(value)
+                
+            }
+    
+            fn(resolve, reject)
+        }
+        
+        foo((resolve,reject) =>{console.log(200);resolve(111)})
+        
+    
+    
+    </script>
+</body>
+</html>

@@ -5065,8 +5065,7 @@
   }
 
   function Vue (options) {
-    if (!(this instanceof Vue)
-    ) {
+    if (!(this instanceof Vue)) {
       warn('VueS is a constructor and should be called with the `new` keyword');
     }
     this._init(options);
